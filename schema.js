@@ -1,12 +1,10 @@
-const { default: mongoose } = require("mongoose");
-
+const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-  id: Number,
-  name: String,
-  price: Number,
-  des: String,
-  img: String,
+    name: String,
+    price: Number,
+    description: String,
+    image: String
 });
 
-module.exports = productSchema; 
+module.exports = productSchema;

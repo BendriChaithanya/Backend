@@ -1,27 +1,15 @@
 const express = require("express");
-
-
-const {
-  addVegItem,
-  addNonvegItem,
-  addMilkItem,
-  addMultipleVegItems,
-  addMultipleNonvegItems,
-  addMultipleMilkItems,
-  getVegItems,
-  getNonvegItems,
-  getMilkItems,
-  registerUser,
-  loginUser,
-  getAllOrders
+// const verifyToken = require("./verifyToken");
+const { 
+  addVegItem, addNonvegItem, addMilkItem,
+  addMultipleVegItems, addMultipleNonvegItems, addMultipleMilkItems,
+  getVegItems, getNonvegItems, getMilkItems,
+  getAllOrders, placeOrder, registerUser, loginUser
 } = require("./ProductController");
-const verifyToken = require("./Authmiddleware");
-
-
-
-
+// const auth = require("./auth");
 const router = express.Router();
 
+// Products
 router.post("/addVegItem", addVegItem);
 router.post("/addNonvegItem", addNonvegItem);
 router.post("/addMilkItem", addMilkItem);
@@ -34,12 +22,12 @@ router.get("/getVegItems", getVegItems);
 router.get("/getNonvegItems", getNonvegItems);
 router.get("/getMilkItems", getMilkItems);
 
- router.post("/orders", getAllOrders);
+// Orders
+router.get("/orders", getAllOrders);
+router.post("/placeOrders", placeOrder);
+
+// Auth
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-
-// router.post("/orders", verifyToken, getAllOrders);
-
-
 
 module.exports = router;

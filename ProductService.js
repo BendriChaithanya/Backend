@@ -1,5 +1,5 @@
+const mongoose = require("mongoose");
 const productSchema = require("./Schema");
-const { default: mongoose } = require("mongoose");
 const User = require("./user.schema");
 const orderModel = require("./orders.schema");
 const jwt = require("jsonwebtoken");
@@ -19,29 +19,19 @@ const addMultipleMilkItemsService = (data) => MilkProductModel.insertMany(data);
 const getVegItemsService = () => VegProductModel.find();
 const getNonvegItemsService = () => NonVegProductModel.find();
 const getMilkItemsService = () => MilkProductModel.find();
+
 const fetchAllOrders = () => orderModel.find();
 
+const saveOrderService = (data) => new orderModel(data).save();
 
-const registerUserService = async (data) => {
-  return new User(data).save();
-};
-
+const registerUserService = async (data) => new User(data).save();
 
 const loginUserService = async ({ email, password }) => {
   const user = await User.findOne({ email });
-  if (!user) return null;
+  if (!user || user.password !== password) return null;
 
-  
-  if (user.password !== password) return null;
-
-  
-  const token = jwt.sign(
-    { id: user._id, email: user.email },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN }
-  );
-
-  return { user, token };  
+  const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+  return { user, token };
 };
 
 module.exports = {
@@ -55,6 +45,7 @@ module.exports = {
   getNonvegItemsService,
   getMilkItemsService,
   fetchAllOrders,
+  saveOrderService,
   registerUserService,
-  loginUserService,
+  loginUserService
 };
