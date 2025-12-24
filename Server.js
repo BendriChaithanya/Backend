@@ -8,6 +8,13 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Default route for root '/'
+app.get("/", (req, res) => {
+  res.send("Welcome to BojanBazar Backend API!");
+});
+
+// API routes
 app.use("/api/v1/products", router);
 
 mongoose
@@ -15,5 +22,5 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log("MongoDB connection error:", err));
 
-// const PORT = process.env.PORT || 9065;
-// app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+const PORT = process.env.PORT || 9065;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
