@@ -51,8 +51,27 @@ const placeOrder = async (req, res) => {
   }
 };
 
-const registerUser = async (req, res) => { try { const result = await registerUserService(req.body); res.status(201).send({ message: "User registered successfully", user: result }); } catch (err) { res.status(500).send(err); } };
-const loginUser = async (req, res) => { try { const result = await loginUserService(req.body); if (!result) return res.status(400).send({ message: "Invalid Email or Password" }); res.status(200).send({ message: "Login Successful", token: result.token, user: result.user }); } catch (err) { res.status(500).send(err); } };
+const registerUser = async (req, res) => { try { const result = await registerUserService(req.body);
+res.status(201).send({ message: "User registered successfully", user: result }); 
+} catch (err) { res.status(500).send(err); } };
+
+const loginUser = async (req, res) => {
+  try {
+    const result = await loginUserService(req.body); 
+
+    if (!result)
+      return res.status(400).send({ message: "Invalid Email or Password" });
+
+    res.status(200).send({
+      message: "Login Successful",
+      token: result.token,
+      user: result.user
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 
 module.exports = {
   addVegItem, addNonvegItem, addMilkItem,

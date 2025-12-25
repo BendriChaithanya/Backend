@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Default route for root '/'
 app.get("/", (req, res) => {
-  res.send("Welcome to BojanBazar Backend API!");
+  res.send("Welcome to DishHub Backend API!");
 });
 
 // API routes

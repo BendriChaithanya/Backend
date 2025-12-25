@@ -4,6 +4,7 @@ const User = require("./user.schema");
 const orderModel = require("./orders.schema");
 const jwt = require("jsonwebtoken");
 
+
 const VegProductModel = mongoose.model("VegItem", productSchema);
 const NonVegProductModel = mongoose.model("NonVegItem", productSchema);
 const MilkProductModel = mongoose.model("MilkItem", productSchema);
@@ -24,13 +25,31 @@ const fetchAllOrders = () => orderModel.find();
 
 const saveOrderService = (data) => new orderModel(data).save();
 
-const registerUserService = async (data) => new User(data).save();
+const bcrypt = require("bcryptjs");
+
+const registerUserService = async (data) => {
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+
+  return await User.create({
+    ...data,
+    password: hashedPassword
+  });
+};
+
 
 const loginUserService = async ({ email, password }) => {
   const user = await User.findOne({ email });
-  if (!user || user.password !== password) return null;
+  if (!user) return null;
 
-  const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) return null;
+
+  const token = jwt.sign(
+    { id: user._id, email: user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
+  );
+
   return { user, token };
 };
 
