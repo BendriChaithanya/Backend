@@ -8,19 +8,42 @@ const {
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
-const addVegItem = async (req, res) => { try { const result = await addVegItemService(req.body); res.status(201).send({ message: "Veg item added successfully", item: result }); } catch (err) { res.status(500).send({ message: "Failed to add veg item", error: err.message }); } };
-const addNonvegItem = async (req, res) => { try { const result = await addNonvegItemService(req.body); res.status(201).send({ message: "Non-veg item added successfully", item: result }); } catch (err) { res.status(500).send({ message: "Failed to add non-veg item", error: err.message }); } };
-const addMilkItem = async (req, res) => { try { const result = await addMilkItemService(req.body); res.status(201).send({ message: "Milk item added successfully", item: result }); } catch (err) { res.status(500).send({ message: "Failed to add milk item", error: err.message }); } };
+const addVegItem = async (req, res) => { try { const result = await addVegItemService(req.body); 
+  res.status(201).send({ message: "Veg item added successfully", item: result });
+ } catch (err) { res.status(500).send({ message: "Failed to add veg item", error: err.message }); } };
 
-const addMultipleVegItems = async (req, res) => { try { const result = await addMultipleVegItemsService(req.body); res.status(201).send({ message: "Multiple veg items added successfully", items: result }); } catch (err) { res.status(500).send({ message: "Error adding multiple veg items", error: err.message }); } };
-const addMultipleNonvegItems = async (req, res) => { try { const result = await addMultipleNonvegItemsService(req.body); res.status(201).send({ message: "Multiple non-veg items added successfully", items: result }); } catch (err) { res.status(500).send({ message: "Error adding multiple non-veg items", error: err.message }); } };
-const addMultipleMilkItems = async (req, res) => { try { const result = await addMultipleMilkItemsService(req.body); res.status(201).send({ message: "Multiple milk items added successfully", items: result }); } catch (err) { res.status(500).send({ message: "Error adding multiple milk items", error: err.message }); } };
+const addNonvegItem = async (req, res) => { try { const result = await addNonvegItemService(req.body); 
+  res.status(201).send({ message: "Non-veg item added successfully", item: result });
+ } catch (err) { res.status(500).send({ message: "Failed to add non-veg item", error: err.message }); } };
 
-const getVegItems = async (req, res) => { try { const items = await getVegItemsService(); res.send({ items }); } catch (err) { res.status(500).send({ message: "Failed to fetch veg items", error: err.message }); } };
-const getNonvegItems = async (req, res) => { try { const items = await getNonvegItemsService(); res.send({ items }); } catch (err) { res.status(500).send({ message: "Failed to fetch non-veg items", error: err.message }); } };
-const getMilkItems = async (req, res) => { try { const items = await getMilkItemsService(); res.send({ items }); } catch (err) { res.status(500).send({ message: "Failed to fetch milk items", error: err.message }); } };
+const addMilkItem = async (req, res) => { try { const result = await addMilkItemService(req.body);
+   res.status(201).send({ message: "Milk item added successfully", item: result });
+   } catch (err) { res.status(500).send({ message: "Failed to add milk item", error: err.message }); } };
 
-const getAllOrders = async (req, res) => { try { const orders = await fetchAllOrders(); res.status(200).json({ message: "Orders fetched successfully", data: orders }); } catch (err) { res.status(500).json({ message: "Failed to fetch orders", error: err.message }); } };
+const addMultipleVegItems = async (req, res) => { try { const result = await addMultipleVegItemsService(req.body);
+   res.status(201).send({ message: "Multiple veg items added successfully", items: result }); 
+  } catch (err) { res.status(500).send({ message: "Error adding multiple veg items", error: err.message }); } };
+
+const addMultipleNonvegItems = async (req, res) => { try { const result = await addMultipleNonvegItemsService(req.body);
+   res.status(201).send({ message: "Multiple non-veg items added successfully", items: result }); 
+  } catch (err) { res.status(500).send({ message: "Error adding multiple non-veg items", error: err.message }); } };
+
+const addMultipleMilkItems = async (req, res) => { try { const result = await addMultipleMilkItemsService(req.body);
+   res.status(201).send({ message: "Multiple milk items added successfully", items: result });
+   } catch (err) { res.status(500).send({ message: "Error adding multiple milk items", error: err.message }); } };
+
+const getVegItems = async (req, res) => { try { const items = await getVegItemsService();
+   res.send({ items }); } catch (err) { res.status(500).send({ message: "Failed to fetch veg items", error: err.message }); } };
+
+const getNonvegItems = async (req, res) => { try { const items = await getNonvegItemsService();
+   res.send({ items }); } catch (err) { res.status(500).send({ message: "Failed to fetch non-veg items", error: err.message }); } };
+
+const getMilkItems = async (req, res) => { try { const items = await getMilkItemsService(); 
+  res.send({ items }); } catch (err) { res.status(500).send({ message: "Failed to fetch milk items", error: err.message }); } };
+
+const getAllOrders = async (req, res) => { try { const orders = await fetchAllOrders(); 
+  res.status(200).json({ message: "Orders fetched successfully", data: orders });
+ } catch (err) { res.status(500).json({ message: "Failed to fetch orders", error: err.message }); } };
 
 const placeOrder = async (req, res) => {
   try {

@@ -24,7 +24,7 @@ router.get("/getMilkItems", getMilkItems);
 
 // Orders
 router.get("/orders", getAllOrders);
-router.post("/placeOrders", placeOrder);
+
 
 // Auth
 router.post("/register", registerUser);
