@@ -6,7 +6,14 @@ const router = require("./routes");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: true, // ⭐ ALLOW ALL ORIGINS TEMPORARILY
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.options("*", cors());
 app.use(express.json());
 
 // Default route for root '/'
